@@ -1,5 +1,4 @@
-import { IsObject, IsString } from "class-validator";
-import { Rating } from "./rating";
+import { IsString } from "class-validator";
 
 export class CreateUserDto {
     @IsString()
@@ -8,6 +7,8 @@ export class CreateUserDto {
     avatar: string;
     @IsString()
     description: string;
-    @IsObject()
-    rating: Rating;
+    // @IsObject()
+    // rating: Rating;
+
+
 }

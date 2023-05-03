@@ -15,11 +15,8 @@ export class User {
     @Column()
     avatar: string;
 
-    @Column()
-    userId: number;
-
-    @Column()
-    rating: Rating;
+    // @Column()
+    // rating: Rating;
 
 
 }
