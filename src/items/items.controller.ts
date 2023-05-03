@@ -12,29 +12,29 @@ export class ItemsController {
     }
 
     @Get()
-    getProducts() {
+    getItems() {
         return this.itemsService.getAll()
     }
 
     @Get('/:id')
-    getProduct(@Param('id') id: "string") {
+    getItem(@Param('id') id: "string") {
         return this.itemsService.getById(parseInt(id))
     }
 
     @Post()
-    addProduct(@Body() body: CreateItemDto) {
+    addItem(@Body() body: CreateItemDto) {
         console.log(body)
         return this.itemsService.add(body.title, body.description, body.category, body.image, body.userId)
     }
 
     @Delete('/:id')
     @HttpCode(204)
-    removeProduct(@Param('id') id: string) {
+    removeItem(@Param('id') id: string) {
         this.itemsService.remove(parseInt(id))
     }
 
     @Put('/:id')
-    editProduct(@Body() body: EditItemDto, @Param('id') id: string) {
+    editItem(@Body() body: EditItemDto, @Param('id') id: string) {
         return this.itemsService.edit(+id, body.title, body.description, body.category, body.image)
     }
 }
