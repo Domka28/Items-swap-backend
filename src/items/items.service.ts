@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Item } from "./item.entity";
 import { Repository } from "typeorm";
-
+import { User } from "src/users/user.entity";
 
 // let products = [
 //     { id: 1, title: "Mleko", price: 3.5 },
@@ -26,10 +26,17 @@ export class ItemsService {
     }
 
     getById(id: number) {
-        return this.repo.findOne({ where: { id } });
+        return this.repo.findOne({
+            where: { id }, relations: {
+                user: true
+            }
+        });
     }
 
     add(title: string, description: string, category: string, image: string, userId: number) {
+        // const newUser = new User()
+        // newUser.id = 1;
+        // newUser.userName = "username"
 
         const newItem = this.repo.create({ title, description, category, image, userId })
         return this.repo.save(newItem);

@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsDecimal, IsNumber, IsString } from "class-validator";
 
 export class CreateUserDto {
     @IsString()
@@ -7,8 +7,8 @@ export class CreateUserDto {
     avatar: string;
     @IsString()
     description: string;
-    // @IsObject()
-    // rating: Rating;
-
-
+    @IsDecimal()
+    rate: number;
+    @IsNumber()
+    ratingCount: number;
 }

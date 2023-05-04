@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Rating } from "./rating.entity";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Item } from "src/items/item.entity";
 
 @Entity()
 export class User {
@@ -15,8 +15,14 @@ export class User {
     @Column()
     avatar: string;
 
-    // @Column()
-    // rating: Rating;
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
+    rate: number;
+
+    @Column()
+    ratingCount: number;
+
+    @OneToMany(() => Item, (item) => item.user)
+    items: Item[]
 
 
 }
