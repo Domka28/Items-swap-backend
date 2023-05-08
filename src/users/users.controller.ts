@@ -23,8 +23,7 @@ export class UsersController {
 
     @Post()
     addUser(@Body() body: CreateUserDto) {
-        console.log(body)
-        return this.usersService.add(body.userName, body.description, body.avatar, body.rate, body.ratingCount)
+        return this.usersService.add(body.userName, body.avatar, body.description, body.rate, body.ratingCount)
     }
 
     @Delete('/:id')
@@ -35,7 +34,7 @@ export class UsersController {
 
     @Put('/:id')
     editUser(@Body() body: EditUserDto, @Param('id') id: string) {
-        return this.usersService.edit(+id, body.description, body.avatar)
+        return this.usersService.edit(+id, body.avatar, body.description)
     }
 }
 

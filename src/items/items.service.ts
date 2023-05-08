@@ -4,39 +4,27 @@ import { Item } from "./item.entity";
 import { Repository } from "typeorm";
 import { User } from "src/users/user.entity";
 
-// let products = [
-//     { id: 1, title: "Mleko", price: 3.5 },
-//     { id: 2, title: "Mąka", price: 2.9 },
-// ]
-
-// {
-//     "id": 11,
-//     "title": "Fjallraven - plecak na laptopa",
-//     "description": "Plecak w idealnym stanie. Pomieści laptopa i inne rzeczy potrzebne do pracy lub na uczelnię.",
-//     "category": "male-clothing",
-//     "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-//     "userId": 5
-// }
-
 @Injectable()
 export class ItemsService {
     constructor(@InjectRepository(Item) private repo: Repository<Item>) { }
     getAll() {
-        return this.repo.find();
+        return this.repo.find({
+            relations: {
+                user: true
+            }
+        });
     }
 
     getById(id: number) {
         return this.repo.findOne({
-            where: { id }, relations: {
+            where: { id },
+            relations: {
                 user: true
             }
         });
     }
 
     add(title: string, description: string, category: string, image: string, userId: number) {
-        // const newUser = new User()
-        // newUser.id = 1;
-        // newUser.userName = "username"
 
         const newItem = this.repo.create({ title, description, category, image, userId })
         return this.repo.save(newItem);

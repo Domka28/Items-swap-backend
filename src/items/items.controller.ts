@@ -23,7 +23,6 @@ export class ItemsController {
 
     @Post()
     addItem(@Body() body: CreateItemDto) {
-        console.log(body)
         return this.itemsService.add(body.title, body.description, body.category, body.image, body.userId)
     }
 
