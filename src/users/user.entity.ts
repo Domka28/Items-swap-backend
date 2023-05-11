@@ -9,20 +9,26 @@ export class User {
     @Column()
     userName: string;
 
-    @Column()
+    @Column({ nullable: true })
     description: string;
 
-    @Column()
+    @Column({ nullable: true })
     avatar: string;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2 })
+    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
     rate: number;
 
-    @Column()
+    @Column({ nullable: true })
     ratingCount: number;
 
     @OneToMany(() => Item, (item) => item.user)
     items: Item[]
+
+    @Column({ unique: true })
+    email: string;
+
+    @Column()
+    password: string;
 
 
 }
