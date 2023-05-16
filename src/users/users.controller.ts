@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Delete, HttpCode, Put } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Delete, HttpCode, Put, UseInterceptors, ClassSerializerInterceptor } from "@nestjs/common";
 import { CreateUserDto } from "./dtos/create-user-dto";
 import { UsersService } from "./users.service";
 import { EditUserDto } from "./dtos/edit-user.dto";
@@ -11,14 +11,16 @@ export class UsersController {
         this.usersService = usersService;
     }
 
-    @Get()
-    getUsers() {
-        return this.usersService.getAll()
-    }
-
     @Get('/:id')
+    @UseInterceptors(ClassSerializerInterceptor)
     getUser(@Param('id') id: "string") {
         return this.usersService.getById(parseInt(id))
+    }
+
+    @Get('/profile/:userName')
+    @UseInterceptors(ClassSerializerInterceptor)
+    getUserByName(@Param('userName') userName: "string") {
+        return this.usersService.getByUserName(userName)
     }
 
     @Post()

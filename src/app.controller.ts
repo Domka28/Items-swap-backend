@@ -57,7 +57,11 @@ export class AppController {
     response.cookie('jwt', jwt, { httpOnly: true });
 
     return {
-      message: 'success'
+      "jwt": jwt,
+      "userId": user.id,
+      "userName": user.userName,
+      "description": user.description,
+      "avatar": user.avatar
     };
   }
   @Get('user')

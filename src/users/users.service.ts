@@ -19,6 +19,13 @@ export class UsersService {
         });
     }
 
+    getByUserName(userName: string) {
+        return this.repo.findOne({
+            where: { userName }, relations: {
+                items: true
+            }
+        });
+    }
     add(userName: string, avatar: string, description: string, rate: number, ratingCount: number) {
         const newUser = this.repo.create({ userName, avatar, description, rate, ratingCount })
         return this.repo.save(newUser);
