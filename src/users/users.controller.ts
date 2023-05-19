@@ -34,9 +34,10 @@ export class UsersController {
         this.usersService.remove(parseInt(id))
     }
 
-    @Put('/:id')
+    @Put('/profile/:id')
     editUser(@Body() body: EditUserDto, @Param('id') id: string) {
         return this.usersService.edit(+id, body.avatar, body.description)
     }
+
 }
 
