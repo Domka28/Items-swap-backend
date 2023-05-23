@@ -36,5 +36,10 @@ export class ItemsController {
     editItem(@Body() body: EditItemDto, @Param('id') id: string) {
         return this.itemsService.edit(+id, body.title, body.description, body.category, body.image)
     }
+
+    @Get('/user/:userId')
+    getItemsByUserId(@Param('userId') userId: "string") {
+        return this.itemsService.getByUserId(parseInt(userId))
+    }
 }
 

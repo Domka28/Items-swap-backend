@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Item } from "./item.entity";
 import { Repository } from "typeorm";
-import { User } from "src/users/user.entity";
 
 @Injectable()
 export class ItemsService {
@@ -23,6 +22,16 @@ export class ItemsService {
             }
         });
     }
+
+    getByUserId(userId: number) {
+        return this.repo.find({
+            where: { userId },
+            relations: {
+                user: true
+            }
+        });
+    }
+
 
     add(title: string, description: string, category: string, image: string, userId: number) {
 
