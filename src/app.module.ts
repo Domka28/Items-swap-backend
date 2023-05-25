@@ -6,9 +6,10 @@ import { ItemsModule } from './items/items.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { JwtModule } from '@nestjs/jwt/dist';
+import { SwapModule } from './swap/swap.module';
 
 @Module({
-  imports: [ItemsModule, UsersModule,
+  imports: [ItemsModule, UsersModule, SwapModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
