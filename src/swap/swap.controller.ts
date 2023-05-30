@@ -20,7 +20,7 @@ export class SwapController {
     }
 
     @Get('/author/:authorId')
-    getSwapsById(@Param('authorId') authorId: "string") {
+    getAllByAuthorId(@Param('authorId') authorId: "string") {
         return this.swapService.getAllByAuthorId(parseInt(authorId))
     }
 }
