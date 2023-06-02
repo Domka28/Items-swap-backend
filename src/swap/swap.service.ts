@@ -11,6 +11,7 @@ export class SwapService {
     constructor(@InjectRepository(Swap) private repo: Repository<Swap>,
         @InjectRepository(User) private repoUser: Repository<User>,
         @InjectRepository(Item) private repoItem: Repository<Item>) { }
+
     getAllSwap() {
         return this.repo.find({
         });
@@ -18,7 +19,13 @@ export class SwapService {
 
     getAllByAuthorId(authorId: number) {
         return this.repo.find({
-            where: { swapAuthor: { id: authorId } },
+            where: [{ swapAuthor: { id: authorId } }, { swapRecipient: { id: authorId } }],
+            relations: {
+                offerdItem: true,
+                requestedItem: true,
+                swapRecipient: true,
+                swapAuthor: true
+            }
         });
     }
 
