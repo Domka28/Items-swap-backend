@@ -3,8 +3,6 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 import { SwapService } from "./swap.service";
 import { Swap } from "./swap.entity";
 import { SwapController } from "./swap.controller";
-import { ItemsModule } from "src/items/items.module";
-import { UsersModule } from "src/users/users.module";
 import { ItemsService } from "src/items/items.service";
 import { UsersService } from "src/users/users.service";
 import { User } from "src/users/user.entity";

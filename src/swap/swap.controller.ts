@@ -23,5 +23,21 @@ export class SwapController {
     getAllByAuthorId(@Param('authorId') authorId: "string") {
         return this.swapService.getAllByAuthorId(parseInt(authorId))
     }
+
+    @Get('/complete/:swapId')
+    completeBySwapId(@Param('swapId') swapId: "string") {
+        return this.swapService.completeBySwapId(parseInt(swapId))
+    }
+
+    @Get('/reject/:swapId')
+    rejectBySwapId(@Param('swapId') swapId: "string") {
+        return this.swapService.rejectBySwapId(parseInt(swapId))
+    }
+
+    @Delete('/cancel/:swapId')
+    @HttpCode(204)
+    removeSwap(@Param('swapId') swapId: string) {
+        this.swapService.remove(parseInt(swapId))
+    }
 }
 

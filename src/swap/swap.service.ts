@@ -29,6 +29,18 @@ export class SwapService {
         });
     }
 
+    async completeBySwapId(swapId: number) {
+        const swap = await this.repo.findOne({ where: { id: swapId } });
+        swap.status = Status.Completed
+        return this.repo.save(swap)
+    }
+
+    async rejectBySwapId(swapId: number) {
+        const swap = await this.repo.findOne({ where: { id: swapId } })
+        swap.status = Status.Rejected
+        return this.repo.save(swap)
+    }
+
     async add(offeredItemId: number, requestedItemId: number, swapRecipientId: number, swapAuthorId: number) {
         const swapAuthor = await this.repoUser.findOne({ where: { id: swapAuthorId } });
         const swapRecipient = await this.repoUser.findOne({ where: { id: swapRecipientId } });
@@ -44,6 +56,10 @@ export class SwapService {
 
         const newSwap = this.repo.save(swap)
         return newSwap;
+    }
 
+    async remove(id: number) {
+        const swap = await this.repo.findOne({ where: { id } });
+        this.repo.remove(swap);
     }
 }
