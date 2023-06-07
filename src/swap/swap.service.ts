@@ -13,8 +13,7 @@ export class SwapService {
         @InjectRepository(Item) private repoItem: Repository<Item>) { }
 
     getAllSwap() {
-        return this.repo.find({
-        });
+        return this.repo.find({});
     }
 
     getAllByAuthorId(authorId: number) {
@@ -25,19 +24,35 @@ export class SwapService {
                 requestedItem: true,
                 swapRecipient: true,
                 swapAuthor: true
+            },
+            order: {
+                creationDate: 'DESC'
             }
         });
     }
 
     async completeBySwapId(swapId: number) {
-        const swap = await this.repo.findOne({ where: { id: swapId } });
+        const swap = await this.repo.findOne({
+            where: { id: swapId }
+        });
         swap.status = Status.Completed
         return this.repo.save(swap)
     }
 
     async rejectBySwapId(swapId: number) {
-        const swap = await this.repo.findOne({ where: { id: swapId } })
+        const swap = await this.repo.findOne({
+            where: { id: swapId }, relations: {
+                offerdItem: true,
+                requestedItem: true,
+            }
+        })
+        const requestedItem = await this.repoItem.findOne({ where: { id: swap.requestedItem.id } })
+        const offeredItem = await this.repoItem.findOne({ where: { id: swap.offerdItem.id } })
         swap.status = Status.Rejected
+        requestedItem.isArchived = false
+        offeredItem.isArchived = false
+        this.repoItem.save(requestedItem)
+        this.repoItem.save(offeredItem)
         return this.repo.save(swap)
     }
 
@@ -53,13 +68,22 @@ export class SwapService {
         swap.swapRecipient = swapRecipient
         swap.swapAuthor = swapAuthor
         swap.status = Status.Created
-
+        requestedItem.isArchived = true
+        offeredItem.isArchived = true
+        this.repoItem.save(requestedItem)
+        this.repoItem.save(offeredItem)
         const newSwap = this.repo.save(swap)
         return newSwap;
     }
 
     async remove(id: number) {
         const swap = await this.repo.findOne({ where: { id } });
+        const requestedItem = await this.repoItem.findOne({ where: { id: swap.requestedItem.id } })
+        const offeredItem = await this.repoItem.findOne({ where: { id: swap.offerdItem.id } })
+        requestedItem.isArchived = false
+        offeredItem.isArchived = false
+        this.repoItem.save(requestedItem)
+        this.repoItem.save(offeredItem)
         this.repo.remove(swap);
     }
 }

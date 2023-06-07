@@ -29,7 +29,7 @@ export class ItemsController {
     @Delete('/:id')
     @HttpCode(204)
     removeItem(@Param('id') id: string) {
-        this.itemsService.remove(parseInt(id))
+        return this.itemsService.remove(parseInt(id))
     }
 
     @Put('/:id')

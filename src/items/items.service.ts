@@ -10,6 +10,9 @@ export class ItemsService {
         return this.repo.find({
             relations: {
                 user: true
+            },
+            where: {
+                isArchived: false
             }
         });
     }
@@ -43,11 +46,10 @@ export class ItemsService {
         const item = await this.repo.findOne({ where: { id } });
         this.repo.remove(item);
     }
-    async edit(id: number, title: string, description: string, category: string, image: string) {
+    async edit(id: number, title: string, description: string, image: string) {
         const item = await this.repo.findOne({ where: { id } });
         item.title = title;
         item.description = description;
-        item.category = category;
         item.image = image;
         return this.repo.save(item)
     }

@@ -21,6 +21,9 @@ export class Item {
     @Column()
     userId: number;
 
+    @Column({ default: false })
+    isArchived: boolean;
+
     @ManyToOne(() => User, (user) => user.items)
     user: User
 }
