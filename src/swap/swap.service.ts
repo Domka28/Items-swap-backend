@@ -77,13 +77,20 @@ export class SwapService {
     }
 
     async remove(id: number) {
-        const swap = await this.repo.findOne({ where: { id } });
+        const swap = await this.repo.findOne(
+            {
+                where: { id },
+                relations: {
+                    offerdItem: true,
+                    requestedItem: true,
+                }
+            });
         const requestedItem = await this.repoItem.findOne({ where: { id: swap.requestedItem.id } })
         const offeredItem = await this.repoItem.findOne({ where: { id: swap.offerdItem.id } })
         requestedItem.isArchived = false
         offeredItem.isArchived = false
         this.repoItem.save(requestedItem)
         this.repoItem.save(offeredItem)
-        this.repo.remove(swap);
+        return this.repo.remove(swap);
     }
 }

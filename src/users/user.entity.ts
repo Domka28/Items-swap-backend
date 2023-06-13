@@ -2,7 +2,6 @@ import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Item } from "src/items/item.entity";
 import { Exclude } from 'class-transformer';
 
-
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
@@ -17,12 +16,6 @@ export class User {
     @Column({ nullable: true })
     avatar: string;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-    rate: number;
-
-    @Column({ nullable: true })
-    ratingCount: number;
-
     @OneToMany(() => Item, (item) => item.user)
     items: Item[]
 
@@ -32,6 +25,4 @@ export class User {
     @Column()
     @Exclude()
     password: string;
-
-
 }

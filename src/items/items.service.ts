@@ -28,10 +28,11 @@ export class ItemsService {
 
     getByUserId(userId: number) {
         return this.repo.find({
-            where: { userId },
+            where: { userId, isArchived: false },
             relations: {
                 user: true
-            }
+            },
+
         });
     }
 

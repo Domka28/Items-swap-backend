@@ -8,12 +8,12 @@ export class Swap {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(() => Item)
-    @JoinColumn()
+    @ManyToOne(() => Item)
+    @JoinColumn({ name: 'offerdItemId' })
     offerdItem: Item;
 
-    @OneToOne(() => Item)
-    @JoinColumn()
+    @ManyToOne(() => Item)
+    @JoinColumn({ name: 'requestedItemId' })
     requestedItem: Item;
 
     @ManyToOne(() => User)

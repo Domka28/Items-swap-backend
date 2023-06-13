@@ -26,8 +26,8 @@ export class UsersService {
             }
         });
     }
-    add(userName: string, avatar: string, description: string, rate: number, ratingCount: number) {
-        const newUser = this.repo.create({ userName, avatar, description, rate, ratingCount })
+    add(userName: string, avatar: string, description: string, email: string, password: string) {
+        const newUser = this.repo.create({ userName, avatar, description, email, password })
         return this.repo.save(newUser);
     }
 

@@ -23,12 +23,17 @@ export class AppController {
     @Body('userName') userName: string,
     @Body('email') email: string,
     @Body('password') password: string,
+    @Body('avatar') avatar: string,
+    @Body('description') description: string
+
   ) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await this.appService.create({
       userName,
       email,
+      avatar,
+      description,
       password: hashedPassword
     });
 

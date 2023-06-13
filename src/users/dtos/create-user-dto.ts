@@ -7,8 +7,8 @@ export class CreateUserDto {
     avatar: string;
     @IsString()
     description: string;
-    @IsDecimal()
-    rate: number;
-    @IsNumber()
-    ratingCount: number;
+    @IsString()
+    email: string;
+    @IsString()
+    password: string;
 }

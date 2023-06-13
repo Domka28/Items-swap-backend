@@ -25,7 +25,7 @@ export class UsersController {
 
     @Post()
     addUser(@Body() body: CreateUserDto) {
-        return this.usersService.add(body.userName, body.avatar, body.description, body.rate, body.ratingCount)
+        return this.usersService.add(body.userName, body.avatar, body.description, body.email, body.password)
     }
 
     @Delete('/:id')
